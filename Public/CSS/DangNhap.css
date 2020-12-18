@@ -1,0 +1,153 @@
+* {
+    padding: 0px;
+    margin: 0;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: rgb(24, 24, 24);
+}
+
+input[type="email"]{
+    width: 350px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+input[type="password"]{
+    width: 350px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+input[type="text"]{
+    width: 350px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+input[type="date"]{
+    width: 350px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+input[type="number"]{
+    width: 350px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+.text-login {
+    height: 50px;
+    width: 300px;
+    font-size: 50px;
+    font-family: myfont;
+    color: black;
+    text-align: center;
+    justify-items: center;
+    margin-top: 40px;
+    margin-left: 150px;
+}
+
+.form-login {
+    width: 450px;
+    height: 600px;
+    background-color: rgb(255, 255, 255);
+    border : 1px solid rgba(31, 30, 30, 0.349);
+    margin-left: 650px;
+    margin-top: 100px;
+}
+.form-register {
+    height: 700px;  
+    margin-top: 50px;
+}
+.form-changepw{
+    height: 500px;
+
+}
+.login {
+    margin: 30px;
+}
+
+.button {
+    display: inline-block;
+    background-color: rgba(110, 109, 109, 0.377);
+    border: none;
+    color: #000000;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+
+.button:hover {
+    background-color: black;
+    color: white
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+* {
+    margin: 0px;
+    padding: 0;
+}
+
+.btn {
+    position: relative;
+    float: left;
+    height: 50px;
+    width: 180px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+   
+}
+
+.btn i {
+    font-size: 18px;
+    color: black;
+    margin-left: 10px;
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.btn a {
+    color: red;
+    float: left;
+    margin: 5px;
+}
+
+.btn:hover::before {
+    position: absolute;
+    content: "";   
+    z-index: 2;
+    background: black;
+    opacity: 0.1;
+}
+.Rectangle{
+    width: 350px;
+    height: 130px;
+    background-color: rgb(112, 248, 94);
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+@font-face {
+    font-family: myfont;
+    src: url(../asset/font/IMPRISHA.TTF);
+}

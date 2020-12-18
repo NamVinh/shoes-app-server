@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+    <div class="form-login form-register">
+        <div class="login">
+
+            {{#if message}}
+            <div class="alert alert-danger" role="alert">
+                <span>{{message}}</span>
+            </div>
+            {{/if}}
+            <form action="/Changepw" method="post">
+                <div class="form-group">
+                    <img src="./Image/logo.jpg" width="150px" height="150px"
+                        style="margin-left: 130px; margin-bottom: 10px;">
+                    <br>
+                    <h4>Đổi Mật Khẩu</h4>
+                </div>
+
+            
+                <div class="form-group">
+                    <label for="">Mật khẩu cũ</label>
+                    <input style="background-color: rgba(196, 195, 195, 0.1);border: none;color: black;" type="password"
+                        class="form-control" placeholder="Enter old password" name="old_password" id="old_password">
+                </div>
+                <div class="form-group">
+                    <label for="">Mật khẩu</label>
+                    <input style="background-color: rgba(196, 195, 195, 0.1);border: none;color: black;" type="password"
+                        class="form-control" placeholder="Enter new password" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="">Nhập lại mật khẩu</label>
+                    <input style="background-color: rgba(196, 195, 195, 0.1);border: none;color: black;" type="password"
+                        class="form-control" placeholder="Enter password" name="repassword" id="repassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                <a name="signup" id="signup" class="btn btn-secondary" href="/Home" role="button">Về trang đăng nhập</a>
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
