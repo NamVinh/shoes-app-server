@@ -14,7 +14,7 @@ const apiRoutes = (passport) => {
     })(req, res, next);
   };
   //Post API
-  router.get("/posts", jwtAuthenticated, apiproduct.getProduct);
+  router.get("/posts", apiproduct.getProduct);
   router.get("/posts/:id",jwtAuthenticated, apiproduct.getProductByCategoryId);
   router.delete("/posts/:id",jwtAuthenticated, apiproduct.removeProduct);
 
@@ -22,7 +22,7 @@ const apiRoutes = (passport) => {
   router.post("/login", userController.loginUser);
   router.get("/user",jwtAuthenticated, userController.getUserIsLoggedIn); //Get user is logged in
   router.get("/users/:id",jwtAuthenticated, userController.getUserById);
-  router.post("/user/add",jwtAuthenticated, userController.createAccount);
+  router.post("/user/add", userController.createAccount);
   router.post("/user/update/:id",jwtAuthenticated, userController.updateAccount);
   return router;
 };
