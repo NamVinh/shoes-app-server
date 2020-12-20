@@ -38,26 +38,18 @@ const getUserIsLoggedIn = async (req, res) => {
 const createAccount = async (req, res) => {
   try {
     let user = await User.find({ gmail });
-    if(user) {return res.status(400).send({
-      api_status: 400,
-      api_message: 'Email đã tồn tại',
-      api_version: 'v1.0',})} 
+    if(user) {return res.status(400).json({
+      status: true,
+      msg: 'Email đã tồn tại',})} 
       else {  
         let userData = await User.create({
         ...req.body,
         password: createHash(req.body.password),
       });
-      return res.status(200).send({
-        api_status: 200,
-        api_message: 'Tạo tài khoản thành công',
-        api_version: 'v1.0',}).json({status: true, data: userData})
-    }  
+      return res.status(200).json({status: true, data: userData})
+    }
   } catch (error) {
-    send({
-      api_status: 500,
-      api_message: 'Thất bại err',
-      api_version: 'v1.0',
-    }).json({ status: false, msg: error.message });
+    return res.status(500).json({ status: false, msg: error.message });
   }
 };
 const updateAccount = async (req, res) => {
