@@ -37,13 +37,15 @@ const getUserIsLoggedIn = async (req, res) => {
 };
 const createAccount = async (req, res) => {
   try {
+    
     let userData = await User.create({
       ...req.body,
       password: createHash(req.body.password),
     });
-    return res.status(200).json({ status: true, data: userData});
+    return res.status(200).json({ status: 200, msg: 'Tạo tài khoản thành công',
+    version: 'v1.0', data: userData});
   } catch (error) {
-    return res.status(200).json({ status: false, msg: error.message });
+    return res.status(500).json({ status: 500, msg: error.message });
   }
 };
 const updateAccount = async (req, res) => {
