@@ -30,7 +30,7 @@ app.use(
   initPassport(passport);
 
   //Kết nối Mongo DB
-const connectDB = require("./config/database");
+const connectDB = require("./Config/database");
 connectDB();
 
 //Cấu hình form gửi đi

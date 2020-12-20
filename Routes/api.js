@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const apiproduct = require("../controllers/api/api.product");
-const userController = require("../controllers/api/api.user");
+const apiproduct = require("../Controllers/api/api.product");
+const userController = require("../Controllers/api/api.user");
 
 const apiRoutes = (passport) => {
   const jwtAuthenticated = (req, res, next) => {
