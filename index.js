@@ -46,6 +46,7 @@ app.engine(
       layoutsDir: __dirname + "/Views/layouts/", //Đường dẫn chứa layout mặc định
     })
   );
+  app.set('views',path.join(__dirname,'Views'));
   app.set("view engine", "hbs");
 
 //Điều hướng trong trang
