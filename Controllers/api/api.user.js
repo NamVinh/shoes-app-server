@@ -42,11 +42,11 @@ const createAccount = async (req, res) => {
       status: true,
       msg: 'Email đã tồn tại',})} 
       else {  
-        let userData = await User.create({
+        let usersData = await User.create({
         ...req.body,
         password: createHash(req.body.password),
       });
-      return res.status(200).json({status: true, data: userData})
+      return res.status(200).json({status: true, data: usersData})
     }
   } catch (error) {
     return res.status(500).json({ status: false, msg: error.message });
