@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const app = express();
+var path = require("path");
 const PORT = process.env.PORT || 4000;
 const passport = require("passport");
 const expressSession = require("express-session");
