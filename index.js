@@ -4,8 +4,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const passport = require("passport");
 const expressSession = require("express-session");
-const Routes = require("./routes/route.js");
-const apiRoutes = require("./routes/api");
+const Routes = require("./Routes/route.js");
+const apiRoutes = require("./Routes/api");
 var initPassport = require("./Passports/initSetup");
 //import modules
 
@@ -15,8 +15,8 @@ const flash = require("connect-flash");
 app.use(flash());
 
 //Cấu hình thư mục public
-app.use(express.static(__dirname + "/public"));
-app.use(express.static(__dirname + "/uploads"))
+app.use(express.static(__dirname + "/Public"));
+app.use(express.static(__dirname + "/Uploads"))
 //Cấu hình passport
 app.use(
     expressSession({
