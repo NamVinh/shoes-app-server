@@ -2,10 +2,10 @@ const User = require("../../Models/Models.User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { gmail, password } = req.body;
   let secretOrKey = "Nam Vinh";
-  if (email && password) {
-    let user = await User.findOne({ email });
+  if (gmail && password) {
+    let user = await User.findOne({ gmail });
     if (!user) {
       res.status(401).json({ status: false, msg: "Không tìm thấy ngươi dùng nào" });
     }
@@ -41,7 +41,7 @@ const createAccount = async (req, res) => {
       ...req.body,
       password: createHash(req.body.password),
     });
-    return res.status(200).json({ status: true, data: userData });
+    return res.status(200).json({ status: true, data: userData});
   } catch (error) {
     return res.status(200).json({ status: false, msg: error.message });
   }
@@ -60,7 +60,7 @@ const updateAccount = async (req, res) => {
     );
     return res.status(200).json({ status: true, data: userData });
   } catch (error) {
-    return res.status(200).json({ status: false, msg: "Có lỗi xảy ra" });
+    return res.status(200).json({ status: false, msg: "Có lỗi xảy ra"+ error.message });
   }
 };
 
