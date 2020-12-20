@@ -38,15 +38,15 @@ const getUserIsLoggedIn = async (req, res) => {
 const createAccount = async (req, res) => {
   try {
     let user = await User.find({ gmail });
-    if(user) {return res.status(400).json({
-      status: true,
-      msg: 'Email đã tồn tại',})} 
-      else {  
-        let usersData = await User.create({
-        ...req.body,
-        password: createHash(req.body.password),
-      });
-      return res.status(200).json({status: true, data: usersData})
+    if(!user) {
+      let usersData = await User.create({
+      ...req.body,
+      password: createHash(req.body.password),
+    });
+    return res.status(200).json({status: true, data: usersData})
+    } 
+    else {  
+        return res.status(400).json({ status: true, msg: 'Email đã tồn tại',})
     }
   } catch (error) {
     return res.status(500).json({ status: false, msg: error.message });
