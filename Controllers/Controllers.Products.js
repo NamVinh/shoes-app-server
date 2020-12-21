@@ -37,7 +37,7 @@ exports.addProduct = async (request, response) => {
     price,
     description,
     category,
-    image: request.file ? request.file.originalname : null,
+    picture: request.file ? request.file.originalname : null,
   };
   if (postId !== "") {
     try {
