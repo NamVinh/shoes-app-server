@@ -1,51 +1,17 @@
-const User = require("../../Models/Models.User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const loginUser = async (req, res) => {
-  const { gmail, password } = req.body;
-  let secretOrKey = "Nam Vinh";
-  if (gmail && password) {
-    let user = await User.findOne({ gmail });
-    if (!user) {
-      res.status(401).json({ status: false, msg: "Không tìm thấy ngươi dùng nào" });
-    }
-    if (isValidPassword(user, password)) {
-      let payload = { _id: user._id };
-      let token = jwt.sign(payload, secretOrKey);
-      res.json({ status: true,  token: token });
-    } else {
-      res.status(401).json({ status: false, msg: "Mật khẩu không đúng" });
-    }
-  }
-};
+const User = require('./Models/User');
 
-const getUserById = async (req, res) => {
-  try {
-    let usersData = await User.findById(req.params.id).select("-password -__v");
-    return res.status(200).json({ status: true, data: usersData });
-  } catch (error) {
-    return res.status(200).json({ status: false, msg: error.message });
+// đăng kí user
+const SingUp = (req, res) => {
+  if (
+    !req.body.name ||
+    !req.body.phone ||
+    !req.body.gmail ||
+    !req.body.password
+  ) {
+    res.status(400).send({message: 'Nhập thông tin'});
+    return;
   }
-};
-const getUserIsLoggedIn = async (req, res) => {
-  try {
-    let usersData = await User.findById(req.user._id).select("-password -__v");
-    return res.status(200).json({ status: true, data: usersData });
-  } catch (error) {
-    return res.status(200).json({ status: false, msg: error.message });
-  }
-};
-const createAccount = async (req, res) => {
-  // try {
-    
-  //   let userData = await User.create({
-  //     ...req.body,
-  //     password: createHash(req.body.password),
-  //   });
-  //   return res.status(200).json({ status: true, data: userData});
-  // } catch (error) {
-  //   return res.status(200).json({ status: false, msg: error.message });
-  // }
+
   var gmail = req.body.gmail ? {gmail: req.body.gmail} : {};
 
   const new_user = new User({
@@ -88,36 +54,204 @@ const createAccount = async (req, res) => {
     }
   });
 };
-const updateAccount = async (req, res) => {
-  try {
-    let userData = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        ...req.body,
-        password: createHash(req.body.password),
-      },
-      {
-        new: true,
-      }
-    );
-    return res.status(200).json({ status: true, data: userData });
-  } catch (error) {
-    return res.status(200).json({ status: false, msg: "Có lỗi xảy ra"+ error.message });
+
+// đăng nhập user
+const SingIn = (req, res) => {
+  if (!req.body.gmail || !req.body.password) {
+    res.status(400).send({message: 'Nhập đầy đủ thông tin'});
+    return;
   }
+
+  User.findOne({
+    gmail: req.body.gmail,
+    password: req.body.password,
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({
+        api_status: 500,
+        api_message: 'user err',
+        api_version: 'v1.0',
+      });
+      console.log('Thất bại');
+    }
+    if (!user) {
+      res.status(400).send({
+        api_status: 400,
+        api_message: 'user err',
+        api_version: 'v1.0',
+      });
+      console.log('thất bại');
+      return user;
+    }
+    res.status(200).send({
+      api_code: 200,
+      api_status: true,
+      api_message: 'Đăng Nhập thành công',
+      api_version: 'v1.0',
+      data: user,
+    });
+    console.log(user);
+  });
 };
 
-// Tạo mật khẩu mã hoá
-const createHash = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+// cập nhập thông tin user
+const update_user = (req, res) => {
+  var id_user = req.params.id ? {_id: req.params.id} : {};
+
+  User.findByIdAndUpdate(id_user, {
+    avatar: req.body.avatar,
+    name: req.body.name,
+    phone: req.body.phone,
+    gmail: req.body.gmail,
+  })
+    .catch((err) => {
+      res.status(400).send({
+        api_code: 400,
+        api_status: true,
+        api_message: 'Cập nhập thông tin thất bại',
+        api_version: 'v1.0',
+        err: err,
+      });
+      return;
+    })
+    .then((data) => {
+      if (!data) {
+        res.status(500).send({
+          api_code: 500,
+          api_status: true,
+          api_message: 'Not Found',
+          api_version: 'v1.0',
+        });
+        return data;
+      } else {
+        res.status(200).send({
+          api_status: 200,
+          api_status: true,
+          api_message: 'cập nhập thành công',
+          api_version: 'v1.0',
+          data: data,
+        });
+      }
+    });
 };
-// So sánh mật khẩu
-const isValidPassword = (user, password) => {
-  return bcrypt.compareSync(password, user.password);
+
+// cập nhập password cho user
+const change_password = (req, res) => {
+  var id_change_password = req.params.id ? {_id: req.params.id} : {};
+
+  User.findOneAndUpdate(id_change_password, {
+    password: req.body.password,
+  })
+    .then((data) => {
+      if (!data) {
+        res.status(500).send({
+          api_code: 500,
+          api_status:fales,
+          api_message: 'Not Found',
+          api_version: 'v1.0',
+        });
+        return;
+      } else {
+        res.status(200).send({
+          api_code: 200,
+          api_status: true,
+          api_message: 'Cập nhập thành công',
+          api_version: 'v1.0',
+          data: data,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(400).send({
+        api_code: 400,
+        api_status: true,
+        api_message: 'Not Found',
+        api_version: 'v1.0',
+        err: err,
+      });
+      return 
+    });
 };
+
+
+// lấy  user theo ID  
+const get_user_id = async (req,res) => {
+  var user_id = req.params.id ? {_id: req.params.id} : {};
+  try {
+    User.find({_id: req.params.id}).then(data => {
+      if(!data) { 
+          res.status(400).send({
+            api_code: 400,
+            api_status:false,
+            api_message: 'data user not found',
+            api_version: 'v1.0',
+        })
+        return data
+      }else{
+        res.status(200).send({
+          api_code: 200,
+          api_status: true,
+          api_message: 'data user',
+          api_version: 'v1.0',
+          data: data
+        })
+      }
+    }).catch(error => {
+      res.status(500).send({
+        api_code: 500,
+        api_status: false,
+        api_message: error,
+        api_version: 'v1.0',
+      })
+    });
+  } catch (error) {
+    
+  }
+}
+
+//get all users
+const getData_user = (req,res) => {
+  try {
+      User.find({})
+      .then(data => {
+        if(!data){
+          res.status(500).send({
+            api_code:500,
+            api_status:false,
+            api_message:'user not found',
+            api_version:'v.01'
+          })
+          return data
+        }else{
+          res.status(200).send({
+            api_code:200,
+            api_status:true,
+            api_message:'user successfully',
+            api_version:'v1.0',
+            data:data
+          })
+        }})
+      .catch(err =>{
+        res.status(400).send({
+          api_code: 400,
+          api_status:false,
+          api_message:'user not found',
+          api_version:'v1.0',
+        })
+        return data
+      })
+  } catch (error) {
+      console.log(error)
+  }
+}
+
 module.exports = {
-  getUserById,
-  getUserIsLoggedIn,
-  createAccount,
-  updateAccount,
-  loginUser,
-};
+  SingUp,
+  SingIn,
+  update_user,
+  change_password,
+  get_user_id,
+  getData_user
+}
+    
+

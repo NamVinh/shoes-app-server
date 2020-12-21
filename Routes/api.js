@@ -15,15 +15,16 @@ const apiRoutes = (passport) => {
   };
   //Post API
   router.get("/posts", apiproduct.getProduct);
-  router.get("/posts/:id",jwtAuthenticated, apiproduct.getProductByCategoryId);
-  router.delete("/posts/:id",jwtAuthenticated, apiproduct.removeProduct);
+  router.get("/posts/:id", apiproduct.getProductByCategoryId);
+  router.delete("/posts/:id", apiproduct.removeProduct);
 
   // User API
-  router.post("/login", userController.loginUser);
-  router.get("/user",jwtAuthenticated, userController.getUserIsLoggedIn); //Get user is logged in
-  router.get("/users/:id",jwtAuthenticated, userController.getUserById);
-  router.post("/user/add", userController.createAccount);
-  router.post("/user/update/:id",jwtAuthenticated, userController.updateAccount);
+  router.post("/login", userController.SingIn);
+  router.get("/user/:id", userController.get_user_id); //Get user is logged in
+  router.get("/users", userController.getData_user);
+  router.post("/signup", userController.SingUp);
+  router.post("/user/update/:id", userController.update_user);
+  router.post("/changepassword/:id", userController.change_password);
   return router;
 };
 module.exports = apiRoutes;
