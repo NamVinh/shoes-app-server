@@ -1,4 +1,4 @@
-const User = require('./Models/Models.User');
+const User = require("../../Models/Models.User");
 
 // đăng kí user
 const SingUp = (req, res) => {
