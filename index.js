@@ -53,7 +53,10 @@ app.engine(
 //Điều hướng trong trang
 app.use("/", Routes(passport));
 app.use("/api/v1", apiRoutes(passport));
-
+app.get("*", (req, res) => {
+  console.log(res);
+  res.render("404", { title: "404 - Page not found", layout: "auth" });
+});
   
 //Khởi chạy server
 app.listen(PORT, () => console.log(`App running on port http://localhost:${PORT}`));
