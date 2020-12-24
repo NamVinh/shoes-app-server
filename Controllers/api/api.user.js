@@ -84,8 +84,7 @@ const SingIn = (req, res) => {
       return user;
     }
     res.status(200).send({
-      api_code: 200,
-      api_status: true,
+      api_status: 200,
       api_message: 'Đăng Nhập thành công',
       api_version: 'v1.0',
       data: user,
@@ -106,8 +105,7 @@ const update_user = (req, res) => {
   })
     .catch((err) => {
       res.status(400).send({
-        api_code: 400,
-        api_status: true,
+        api_status: 400,
         api_message: 'Cập nhập thông tin thất bại',
         api_version: 'v1.0',
         err: err,
@@ -117,16 +115,14 @@ const update_user = (req, res) => {
     .then((data) => {
       if (!data) {
         res.status(500).send({
-          api_code: 500,
-          api_status: true,
+          api_status: 500,
           api_message: 'Not Found',
           api_version: 'v1.0',
         });
         return data;
       } else {
         res.status(200).send({
-          api_code: 200,
-          api_status: true,
+          api_status: 200,
           api_message: 'cập nhập thành công',
           api_version: 'v1.0',
           data: data,
@@ -145,16 +141,14 @@ const change_password = (req, res) => {
     .then((data) => {
       if (!data) {
         res.status(500).send({
-          api_code: 500,
-          api_status:fales,
+          api_status: 500,
           api_message: 'Not Found',
           api_version: 'v1.0',
         });
         return;
       } else {
         res.status(200).send({
-          api_code: 200,
-          api_status: true,
+          api_status: 200,
           api_message: 'Cập nhập thành công',
           api_version: 'v1.0',
           data: data,
@@ -163,8 +157,7 @@ const change_password = (req, res) => {
     })
     .catch((err) => {
       res.status(400).send({
-        api_code: 400,
-        api_status: true,
+        api_status: 400,
         api_message: 'Not Found',
         api_version: 'v1.0',
         err: err,
