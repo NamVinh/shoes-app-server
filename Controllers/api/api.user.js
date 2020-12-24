@@ -125,7 +125,7 @@ const update_user = (req, res) => {
         return data;
       } else {
         res.status(200).send({
-          api_status: 200,
+          api_code: 200,
           api_status: true,
           api_message: 'cập nhập thành công',
           api_version: 'v1.0',

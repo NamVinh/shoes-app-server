@@ -66,7 +66,7 @@
                             {{#each productList}}
                             <tr>
                                 <td style="text-align:center">
-                                    <image src="http://localhost:4000/{{picture}}" style="width: 100px;height:130px" />
+                                    <image src="{{picture}}" style="width: 100px;height:130px" />
                                 </td>
                                 <td>
                                     <p class=" data">{{name}}</p>
@@ -144,7 +144,7 @@
                                             <img id="imagePreview" class="img-thumbnail img-preview "
                                                 src="http://placehold.it/100" title="Hình ảnh" width="100" height="100">
                                         </div>
-                                        <input type="file" name="picture" id="picture" hidden>
+                                        <input type="file" name="image" id="image" hidden>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -182,7 +182,7 @@
         }
 
         //Cái này là để bắt hành động khi cái input file image có sự thay đổi hình ảnh
-        var imageInput = document.querySelector('#picture');
+        var imageInput = document.querySelector('#image');
         imageInput.onchange = changeEventHandler;
         //neus hình ảnh thay đổi thì nó sẽ chạy readURL và gán hình vào
         function changeEventHandler(event) {
@@ -195,7 +195,7 @@
         //Khi đó nó sẽ thực hiện hành động click vào cái input file hiện tại đang ẩn của e
         //nó sẽ hiện ra khung chọn ảnh. Hết
 
-        document.querySelector('#picture').click();
+        document.querySelector('#image').click();
     })
     document.querySelector('#addBtn').addEventListener('click', e => {
         document.querySelector('#heading').innerText = "Thêm Sản Phẩm";
@@ -213,13 +213,13 @@
                 let pid = e.target.dataset.id;
                 let catId = e.target.dataset.categoryid;
                 let pr = e.target.parentNode.parentNode;
-                let picture = pr.getElementsByTagName('img')[0].src;
+                let image = pr.getElementsByTagName('img')[0].src;
                 let name = pr.getElementsByTagName('td')[1].innerText;
                 let price = pr.getElementsByTagName('td')[2].innerText;
                 let description = pr.getElementsByTagName('td')[3].innerText;
                 document.querySelector('#heading').innerText = "Sửa bài đăng";
                 document.querySelector('#submitBtn').innerText = "Cập nhật";
-                document.querySelector('#imagePreview').src = picture; //Nó chỉ là gán src vào thôi. có gì đâu :D
+                document.querySelector('#imagePreview').src = image; //Nó chỉ là gán src vào thôi. có gì đâu :D
                 document.querySelector('#name').value = name;
                 document.querySelector('#price').value = price;
                 document.querySelector('#description').value = description;
